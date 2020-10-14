@@ -2,28 +2,33 @@
   "name": "PUMPED",
   "version": "0.0.1",
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.7",
+    "@types/jest": "^26.0.14",
+    "@types/node": "^14.11.8",
+    "@types/react": "^16.9.52",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.4",
+    "PUMPED-api": "git+https://github.com/NWylynko/PUMPED-api",
+    "axios": "^0.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-font": "^1.1.2",
     "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
-    "react-query": "^2.15.1",
+    "react-query": "^2.23.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.3",
     "react-use": "^15.3.4",
-    "typescript": "~3.7.2"
+    "styled-components": "^5.2.0",
+    "typescript": "^4.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
+    "serve": "npx serve -s build",
     "build": "react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "updateAPITypes": "yarn add git+https://github.com/NWylynko/PUMPED-api"
   },
   "eslintConfig": {
     "extends": "react-app"
