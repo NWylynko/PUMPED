@@ -1,23 +1,18 @@
-import React from 'react'
-import { useQuery } from "react-query";
-import { getShoes } from './api'
+import React, { useState, useEffect } from 'react'
+
 import { ShoeWithColours } from 'PUMPED-api/src/api/shoe/types'
-import { basicColour } from 'PUMPED-api/src/api/colour/types'
+import { ShoeColour } from 'PUMPED-api/src/api/colour/types'
 import styled from 'styled-components'
+import { apiEndpoint } from './config'
 
-export const Shoes = () => {
 
-  const { isLoading, error, data } = useQuery("shoes", getShoes);
+export const Shoes = ({ data }: { data: ShoeWithColours[] }) => {
 
-  // console.log(data)
+  useEffect(() => {
+    console.log(data)
+  }, [data])
 
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
 
-  if (error) {
-    return <p>error</p>
-  }
 
   return (<Grid>{data.map(Shoe)}</Grid>)
 }
@@ -35,16 +30,23 @@ const Grid = styled.main`
   }
 `;
 
-const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours }: ShoeWithColours) => {
+const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon }: ShoeWithColours) => {
+  
+  const [ imageID, setImageID ] = useState(CoverImage)
+
   return (
     <ShoeContainer key={ID}>
-      <CoverImg ImageID={CoverImage} />
+      <ShoeText>
       <Horizontal>
-        <p>{Brand}</p>
-        <p><b>{Name}</b></p>
-        <p>${Price}</p>
+        <IconImg ImageID={BrandIcon} />
+        <p style={{ color: 'black', margin: 10, padding: 10 }}>${Price}</p>
       </Horizontal>
-      <Colours colours={colours} />
+      <div>
+        <p style={{ color: 'black', textAlign: 'center', marginTop: 20 }}>{Name}</p>
+        <Colours colours={colours} setImageID={setImageID} />
+      </div>
+      </ShoeText>
+      <CoverImg ImageID={imageID} />
     </ShoeContainer>
   )
 }
@@ -67,29 +69,64 @@ const Horizontal = styled.div`
   padding-bottom: 4px;
 `;
 
-const Colours = ({ colours }: { colours: basicColour[] }) => {
+const ShoeText = styled.div`
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  height: 300px;
+`;
+
+const Colours = ({ colours, setImageID }: { colours: ShoeColour[], setImageID: (n: number) => void }) => {
   return (
     <ColoursContainer>
-      {colours.map((props, index) => <ColourCircle {...props} key={index} />)}
+      {colours.map((props, index) => <HoverColourCircle colour={props} key={index} setImageID={setImageID} />)}
     </ColoursContainer>
   )
 }
 
 const ColoursContainer = styled.div`
   display: inline-flex;
-  width: 100%
+  width: 280px;
+  justify-content: space-evenly;
+  margin: 10px;
 `;
+
+const HoverColourCircle = ( {colour, setImageID}: {colour: ShoeColour, setImageID: (n: number) => void }) => {
+  return <ColourCircle {...colour} onMouseEnter={() => setImageID(colour.ImageID)} />
+}
 
 const ColourCircle = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: ${({hex}: basicColour) => hex};
+  border: 1px solid white;
+  background-color: ${({hex}: ShoeColour) => hex};
+
+  &:hover {
+    border-color: ${({hex}: ShoeColour) => hex};
+  }
+`;
+
+const IconImg = ({ ImageID }: { ImageID: string | number }) => {
+
+  const url = `${apiEndpoint}image/${ImageID}/low`
+
+  return <IconImage src={url} />
+}
+
+const IconImage = styled.img`
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  padding: 10px;
+  margin: 10px;
 `;
 
 const CoverImg = ({ ImageID }: { ImageID: number }) => {
 
-  const url = `http://localhost:5000/image/${ImageID}/low`
+  const url = `${apiEndpoint}image/${ImageID}/medium`
 
   // const { isLoading, error, data } = useQuery("shoes", () => getImage(url));
 

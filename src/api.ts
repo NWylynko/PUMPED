@@ -1,15 +1,18 @@
 import axios from 'axios'
+import { apiEndpoint } from './config'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/',
-  timeout: 1000,
+  baseURL: apiEndpoint,
+  // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 });
 
 const get = async (url: string) => {
-  const response = await instance.get(url)
+  // const response = await instance.get(url)
+  const response = await fetch(apiEndpoint + url)
 
-  const { data } = response
+  // const { data } = response
+  const data = await response.json()
 
   if (data.error) {
     throw new Error(data.error)
@@ -18,7 +21,7 @@ const get = async (url: string) => {
   return data.data
 }
 
-export const getShoes = () => get('/shoe')
+export const getShoes = () => get('shoe')
 
 export const getImage = async (url: string) => {
   // const response = await instance.get(url)
