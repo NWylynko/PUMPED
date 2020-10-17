@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import Navigation from './navigation';
 import * as serviceWorker from './serviceWorker';
 
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
@@ -11,7 +11,7 @@ const queryCache = new QueryCache();
 ReactDOM.render(
   <React.StrictMode>
     <ReactQueryCacheProvider queryCache={queryCache}>
-      <App />
+      <Navigation />
     </ReactQueryCacheProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -4,6 +4,7 @@ import { ShoeWithColours } from 'PUMPED-api/src/api/shoe/types'
 import { ShoeColour } from 'PUMPED-api/src/api/colour/types'
 import styled from 'styled-components'
 import { apiEndpoint } from './config'
+import { Link } from 'react-router-dom'
 
 
 export const Shoes = ({ data }: { data: ShoeWithColours[] }) => {
@@ -35,7 +36,8 @@ const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon }: ShoeWi
   const [ imageID, setImageID ] = useState(CoverImage)
 
   return (
-    <ShoeContainer key={ID}>
+    <Link key={ID} to={encodeURI(`/shoe/${ID}/${Name}`).replace(/%20/g, '-')}>
+    <ShoeContainer>
       <ShoeText>
       <Horizontal>
         <IconImg ImageID={BrandIcon} />
@@ -48,6 +50,7 @@ const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon }: ShoeWi
       </ShoeText>
       <CoverImg ImageID={imageID} />
     </ShoeContainer>
+    </Link>
   )
 }
 
