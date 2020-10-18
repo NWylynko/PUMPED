@@ -15,8 +15,6 @@ export default function Navigation() {
         <Route path="/about">
           <ShoePage />
         </Route>
-        {/* both id/name and just id go to the same page as name is just used to create a more shareable link */}
-        <Route path="/shoe/:id/:name" children={<ShoePage />} />
         <Route path="/shoe/:id" children={<ShoePage />} />
         <Route path="/">
           <Home />

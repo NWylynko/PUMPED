@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
     <header>
-      <PUMPED>PUMPED</PUMPED>
+      <Link to="/" style={{ textDecoration: 'none' }}><PUMPED>PUMPED</PUMPED></Link>
 
     </header>
   )

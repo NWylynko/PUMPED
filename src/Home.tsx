@@ -6,7 +6,7 @@ import { getShoes } from './api'
 
 function Home() {
 
-  const { isLoading, error, data } = useQuery("shoes", getShoes);
+  const { isLoading, error, data = [] } = useQuery("shoes", getShoes);
 
   if (isLoading) {
     return <p>Loading...</p>

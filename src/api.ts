@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { apiEndpoint } from './config'
+import { ShoeWithColours, Shoe } from 'PUMPED-api/src/api/shoe/types';
 
 const instance = axios.create({
   baseURL: apiEndpoint,
@@ -21,7 +22,9 @@ const get = async (url: string) => {
   return data.data
 }
 
-export const getShoes = () => get('shoe')
+export const getShoes = (): Promise<ShoeWithColours[]> => get('shoe')
+
+export const getShoe = (id: string): Promise<Shoe> => get(`shoe/${id}`)
 
 export const getImage = async (url: string) => {
   // const response = await instance.get(url)
