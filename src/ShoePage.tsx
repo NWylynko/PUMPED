@@ -46,6 +46,13 @@ function Shoe({
       <p>{Brand}</p>
       <p>${Price}</p>
       <p>{Description}</p>
+      <p>{releaseDate}</p>
+  <p>{CoverImage}</p>
+  <p>{Style}</p>
+  <p>{Section}</p>
+  <p>{Collection}</p>
+  <p>{Stars}</p>
+  <p>{BrandIcon}</p>
     </>
   );
 }
