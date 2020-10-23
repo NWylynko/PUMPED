@@ -37,8 +37,7 @@ const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon, Stars: s
   const [ imageID, setImageID ] = useState(CoverImage)
 
   return (
-    <Link key={ID} to={encodeURI(`/shoe/${ID}`)}>
-    <ShoeContainer>
+    <ShoeContainer key={ID} to={encodeURI(`/shoe/${ID}`)}>
       <ShoeText>
       <Horizontal>
         <IconImg ImageID={BrandIcon} />
@@ -52,11 +51,10 @@ const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon, Stars: s
       </ShoeText>
       <CoverImg ImageID={imageID} />
     </ShoeContainer>
-    </Link>
   )
 }
 
-const ShoeContainer = styled.div`
+const ShoeContainer = styled(Link)`
   margin: 10px;
   padding: 10px;
   max-width: 300px;
