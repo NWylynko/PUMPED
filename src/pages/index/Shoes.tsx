@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { ShoeWithColours } from 'PUMPED-api/src/api/shoe/types'
 import { ShoeColour } from 'PUMPED-api/src/api/colour/types'
 import styled from 'styled-components'
-import { apiEndpoint } from './config'
+import { apiEndpoint } from '../../config'
 import { Link } from 'react-router-dom'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 

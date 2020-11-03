@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Navigation from './navigation';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 
@@ -11,7 +12,9 @@ const queryCache = new QueryCache();
 ReactDOM.render(
   <React.StrictMode>
     <ReactQueryCacheProvider queryCache={queryCache}>
-      <Navigation />
+      <Router>
+        <Navigation />
+      </Router>
     </ReactQueryCacheProvider>
   </React.StrictMode>,
   document.getElementById('root')

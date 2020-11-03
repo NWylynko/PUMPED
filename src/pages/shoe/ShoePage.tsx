@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getShoe } from "./api";
+import { getShoe } from "../../api";
 import type { ShoeColour } from 'PUMPED-api/src/api/colour/types';
 import type { ShoeWithColours as ShoeProps } from "PUMPED-api/src/api/shoe/types";
-import { apiEndpoint } from './config'
+import { apiEndpoint } from '../../config'
 import styled from 'styled-components'
 
 export function ShoePage() {
@@ -66,7 +66,7 @@ interface ImageProps {
   colours: ShoeColour[];
 }
 
-const Images = ({ colours }: ImageProps) => {
+const Images = ({ colours = [] }: ImageProps) => {
 
   return (
     <div>
