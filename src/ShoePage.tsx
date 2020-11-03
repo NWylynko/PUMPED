@@ -2,7 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getShoe } from "./api";
-import type { Shoe as ShoeProps } from "PUMPED-api/src/api/shoe/types";
+import type { ShoeColour } from 'PUMPED-api/src/api/colour/types';
+import type { ShoeWithColours as ShoeProps } from "PUMPED-api/src/api/shoe/types";
+import { apiEndpoint } from './config'
+import styled from 'styled-components'
 
 export function ShoePage() {
   let { id }: { id: string } = useParams();
@@ -39,20 +42,39 @@ function Shoe({
   Stars,
   Brand,
   BrandIcon,
+  colours,
 }: ShoeProps) {
   return (
     <>
-      <p>{Name}</p>
-      <p>{Brand}</p>
-      <p>${Price}</p>
-      <p>{Description}</p>
-      <p>{releaseDate}</p>
-  <p>{CoverImage}</p>
-  <p>{Style}</p>
-  <p>{Section}</p>
-  <p>{Collection}</p>
-  <p>{Stars}</p>
-  <p>{BrandIcon}</p>
+      <Images colours={colours} />
+      <p>Name: {Name}</p>
+      <p>Brand: {Brand}</p>
+      <p>Price: ${Price}</p>
+      <p>Description: {Description}</p>
+      <p>releaseDate: {new Date(releaseDate).toString()}</p>
+      <p>CoverImage: {CoverImage}</p>
+      <p>Style: {Style}</p>
+      <p>Section: {Section}</p>
+      <p>Collection: {Collection}</p>
+      <p>Stars: {Stars}</p>
+      <p>BrandIcon: {BrandIcon}</p>
     </>
   );
 }
+
+interface ImageProps {
+  colours: ShoeColour[];
+}
+
+const Images = ({ colours }: ImageProps) => {
+
+  return (
+    <div>
+      {colours.map(({ImageID}) => <Image src={`${apiEndpoint}image/${ImageID}/medium`} />)}
+    </div>
+  )
+}
+
+const Image = styled.img`
+  max-width: 300px;
+`;

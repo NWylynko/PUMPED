@@ -8,7 +8,7 @@ body {
   background-color: #131212;
 }
 
-p, b, h2, h3, h4, h5, h6, a {
+p, b, h2, h3, h4, h5, h6, a, li {
   margin: 0;
   color: rgb(241, 239, 239);
 

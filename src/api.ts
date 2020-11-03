@@ -24,7 +24,7 @@ const get = async (url: string) => {
 
 export const getShoes = (): Promise<ShoeWithColours[]> => get('shoe')
 
-export const getShoe = (id: string): Promise<Shoe> => get(`shoe/${id}`)
+export const getShoe = (id: string): Promise<ShoeWithColours> => get(`shoe/${id}`)
 
 export const getImage = async (url: string) => {
   // const response = await instance.get(url)
