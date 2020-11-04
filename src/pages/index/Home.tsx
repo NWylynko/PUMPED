@@ -1,6 +1,5 @@
 import React from 'react';
 import { Shoes } from './Shoes'
-import styled from 'styled-components'
 import { useQuery } from "react-query";
 import { getShoes } from '../../api'
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/navbar";
-import styled from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import IndexPage from "./pages/index";
