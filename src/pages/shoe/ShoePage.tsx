@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getShoe } from "../../api";
@@ -12,7 +12,9 @@ export function ShoePage() {
 
   const { isLoading, error, data } = useQuery(`shoe ${id}`, () => getShoe(id));
 
-  console.log(data);
+  useEffect(() => {
+    console.log(data);
+  }, [data])
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -45,7 +47,7 @@ function Shoe({
   colours,
 }: ShoeProps) {
   return (
-    <>
+    <Page>
       <Images colours={colours} />
       <p>Name: {Name}</p>
       <p>Brand: {Brand}</p>
@@ -58,9 +60,13 @@ function Shoe({
       <p>Collection: {Collection}</p>
       <p>Stars: {Stars}</p>
       <p>BrandIcon: {BrandIcon}</p>
-    </>
+    </Page>
   );
 }
+
+const Page = styled.div`
+  min-height: calc(101vh - 300px);
+`;
 
 interface ImageProps {
   colours: ShoeColour[];

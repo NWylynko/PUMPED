@@ -17,3 +17,14 @@ p, b, h2, h3, h4, h5, h6, a, li {
   font-style: normal;
 
 }
+
+/* page transitions */
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in-out;
+}

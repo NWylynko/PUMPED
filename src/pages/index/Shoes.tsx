@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 
-import { ShoeWithColours } from 'PUMPED-api/src/api/shoe/types'
-import { ShoeColour } from 'PUMPED-api/src/api/colour/types'
-import styled from 'styled-components'
-import { apiEndpoint } from '../../config'
-import { Link } from 'react-router-dom'
-import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-
+import { ShoeWithColours } from "PUMPED-api/src/api/shoe/types";
+import { ShoeColour } from "PUMPED-api/src/api/colour/types";
+import styled from "styled-components";
+import { apiEndpoint } from "../../config";
+import { Link } from "react-router-dom";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 export const Shoes = ({ data }: { data: ShoeWithColours[] }) => {
-
   useEffect(() => {
-    console.log(data)
-  }, [data])
+    console.log(data);
+  }, [data]);
 
+  return (
+    <Page>
+      <Grid>{data.map(Shoe)}</Grid>
+    </Page>
+  );
+};
 
-
-  return (<Grid>{data.map(Shoe)}</Grid>)
-}
+const Page = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  min-height: calc(101vh - 300px);
+`;
 
 const Grid = styled.main`
   display: grid;
@@ -32,27 +41,37 @@ const Grid = styled.main`
   }
 `;
 
-const Shoe = ({ Name, Price, ID, CoverImage, Brand, colours, BrandIcon, Stars: stars }: ShoeWithColours) => {
-  
-  const [ imageID, setImageID ] = useState(CoverImage)
+const Shoe = ({
+  Name,
+  Price,
+  ID,
+  CoverImage,
+  Brand,
+  colours,
+  BrandIcon,
+  Stars: stars,
+}: ShoeWithColours) => {
+  const [imageID, setImageID] = useState(CoverImage);
 
   return (
     <ShoeContainer key={ID} to={encodeURI(`/shoe/${ID}`)}>
       <ShoeText>
-      <Horizontal>
-        <IconImg ImageID={BrandIcon} />
-        <Stars n={stars}/>
-        <p style={{ color: 'black', margin: 10, padding: 10 }}>${Price}</p>
-      </Horizontal>
-      <div>
-        <p style={{ color: 'black', textAlign: 'center', marginTop: 20 }}>{Name}</p>
-        <Colours colours={colours} setImageID={setImageID} />
-      </div>
+        <Horizontal>
+          <IconImg ImageID={BrandIcon} />
+          <Stars n={stars} />
+          <p style={{ color: "black", margin: 10, padding: 10 }}>${Price}</p>
+        </Horizontal>
+        <div>
+          <p style={{ color: "black", textAlign: "center", marginTop: 20 }}>
+            {Name}
+          </p>
+          <Colours colours={colours} setImageID={setImageID} />
+        </div>
       </ShoeText>
       <CoverImg ImageID={imageID} />
     </ShoeContainer>
-  )
-}
+  );
+};
 
 const ShoeContainer = styled(Link)`
   margin: 10px;
@@ -81,13 +100,21 @@ const ShoeText = styled.div`
   height: 300px;
 `;
 
-const Colours = ({ colours, setImageID }: { colours: ShoeColour[], setImageID: (n: number) => void }) => {
+const Colours = ({
+  colours,
+  setImageID,
+}: {
+  colours: ShoeColour[];
+  setImageID: (n: number) => void;
+}) => {
   return (
     <ColoursContainer>
-      {colours.map((props, index) => <HoverColourCircle colour={props} key={index} setImageID={setImageID} />)}
+      {colours.map((props, index) => (
+        <HoverColourCircle colour={props} key={index} setImageID={setImageID} />
+      ))}
     </ColoursContainer>
-  )
-}
+  );
+};
 
 const ColoursContainer = styled.div`
   display: inline-flex;
@@ -96,28 +123,35 @@ const ColoursContainer = styled.div`
   margin: 10px;
 `;
 
-const HoverColourCircle = ( {colour, setImageID}: {colour: ShoeColour, setImageID: (n: number) => void }) => {
-  return <ColourCircle {...colour} onMouseEnter={() => setImageID(colour.ImageID)} />
-}
+const HoverColourCircle = ({
+  colour,
+  setImageID,
+}: {
+  colour: ShoeColour;
+  setImageID: (n: number) => void;
+}) => {
+  return (
+    <ColourCircle {...colour} onMouseEnter={() => setImageID(colour.ImageID)} />
+  );
+};
 
 const ColourCircle = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
   border: 1px solid white;
-  background-color: ${({hex}: ShoeColour) => hex};
+  background-color: ${({ hex }: ShoeColour) => hex};
 
   &:hover {
-    border-color: ${({hex}: ShoeColour) => hex};
+    border-color: ${({ hex }: ShoeColour) => hex};
   }
 `;
 
 const IconImg = ({ ImageID }: { ImageID: string | number }) => {
+  const url = `${apiEndpoint}image/${ImageID}/low`;
 
-  const url = `${apiEndpoint}image/${ImageID}/low`
-
-  return <IconImage src={url} />
-}
+  return <IconImage src={url} />;
+};
 
 const IconImage = styled.img`
   height: 30px;
@@ -128,8 +162,7 @@ const IconImage = styled.img`
 `;
 
 const CoverImg = ({ ImageID }: { ImageID: number }) => {
-
-  const url = `${apiEndpoint}image/${ImageID}/medium`
+  const url = `${apiEndpoint}image/${ImageID}/medium`;
 
   // const { isLoading, error, data } = useQuery("shoes", () => getImage(url));
 
@@ -143,20 +176,19 @@ const CoverImg = ({ ImageID }: { ImageID: number }) => {
 
   // const { name, src } = data
 
-  return <Image src={url} alt={''} />
+  return <Image src={url} alt={""} />;
 
   // return null
-}
+};
 
 const Image = styled.img`
   width: 300px;
   height: 300px;
 
   object-fit: cover;
-
 `;
 
-const Stars = ({n}: {n:number}) => {
+const Stars = ({ n }: { n: number }) => {
   return (
     <StarContainer>
       {n >= 1 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
@@ -165,8 +197,8 @@ const Stars = ({n}: {n:number}) => {
       {n >= 4 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
       {n >= 5 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
     </StarContainer>
-  )
-}
+  );
+};
 
 const StarContainer = styled.div`
   margin: 10px;
