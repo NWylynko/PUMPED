@@ -16,7 +16,7 @@ export default function Navigation() {
     <>
       <Navbar />
       <TransitionGroup>
-        <CSSTransition key={location.key} classNames="fade" timeout={300}>
+        <CSSTransition key={location.key} classNames="fade" timeout={250}>
           <Switch location={location}>
             <Route path="/cart" component={CartPage} />
             <Route path="/me" component={MePage} />
