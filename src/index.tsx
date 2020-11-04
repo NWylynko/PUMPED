@@ -7,7 +7,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 
-const queryCache = new QueryCache();
+const queryCache = new QueryCache({
+  defaultConfig: {
+    queries: {
+      staleTime: 60000,
+    },
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>
