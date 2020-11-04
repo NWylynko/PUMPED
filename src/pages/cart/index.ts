@@ -1,1 +1,2 @@
-export const x = '';
+import { Cart } from './cart'
+export default Cart

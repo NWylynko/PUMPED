@@ -1,1 +1,2 @@
-export const x = '';
+import { Admin } from './admin'
+export default Admin

@@ -1,1 +1,2 @@
-export const x = '';
+import { Orders } from './orders'
+export default Orders

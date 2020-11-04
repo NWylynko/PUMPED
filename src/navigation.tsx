@@ -21,14 +21,8 @@ export default function Navigation() {
         <TransitionGroup>
           <CSSTransition key={location.key} classNames="fade" timeout={300}>
             <Switch location={location}>
-              {/* <Route path="/shoe/:id" component={ShoePage} /> */}
-              <Route path="/shoe/:id">
-                <ShoePage />
-              </Route>
-              {/* <Route path="/" component={IndexPage} /> */}
-              <Route path="/">
-                <IndexPage />
-              </Route>
+              <Route path="/shoe/:id" component={ShoePage} />
+              <Route path="/" component={IndexPage} />
             </Switch>
           </CSSTransition>
         </TransitionGroup>
