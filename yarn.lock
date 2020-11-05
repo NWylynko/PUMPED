@@ -2332,7 +2332,7 @@
 
 "PUMPED-api@git+https://github.com/NWylynko/PUMPED-api":
   version "0.0.3"
-  resolved "git+https://github.com/NWylynko/PUMPED-api#f0533c8ab1caf863d86d6735961b447ba51cb223"
+  resolved "git+https://github.com/NWylynko/PUMPED-api#55dcf5daf4340c89a80cc835b7485630ff98f4c8"
   dependencies:
     chalk "^4.1.0"
     cors "^2.8.5"
