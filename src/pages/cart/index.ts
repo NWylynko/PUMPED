@@ -1,2 +1,2 @@
-import { Cart } from './cart'
-export default Cart
+import { CheckCustomerID } from './cart'
+export default CheckCustomerID

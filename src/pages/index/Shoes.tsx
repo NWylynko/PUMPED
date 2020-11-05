@@ -5,7 +5,8 @@ import { ShoeColour } from "PUMPED-api/src/api/colour/types";
 import styled from "styled-components";
 import { apiEndpoint } from "../../config";
 import { Link } from "react-router-dom";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { Stars } from "../../components/Stars";
+import { StyledPriceText, Title } from "../shoe/ShoePage";
 
 export const Shoes = ({ data }: { data: ShoeWithColours[] }) => {
   useEffect(() => {
@@ -59,12 +60,21 @@ const Shoe = ({
         <Horizontal>
           <IconImg ImageID={BrandIcon} />
           <Stars n={stars} />
-          <p style={{ color: "black", margin: 10, padding: 10 }}>${Price}</p>
+          <StyledPriceText style={{ color: "black" }}>${Price}</StyledPriceText>
         </Horizontal>
         <div>
-          <p style={{ color: "black", textAlign: "center", marginTop: 20 }}>
+          <Title
+            style={{
+              color: "black",
+              textAlign: "center",
+              marginTop: 20,
+              fontSize: 16,
+              marginBottom: 0,
+              paddingBottom: 0,
+            }}
+          >
             {Name}
-          </p>
+          </Title>
           <Colours colours={colours} setImageID={setImageID} />
         </div>
       </ShoeText>
@@ -186,21 +196,4 @@ const Image = styled.img`
   height: 300px;
 
   object-fit: cover;
-`;
-
-const Stars = ({ n }: { n: number }) => {
-  return (
-    <StarContainer>
-      {n >= 1 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
-      {n >= 2 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
-      {n >= 3 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
-      {n >= 4 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
-      {n >= 5 ? <AiFillStar color="black" /> : <AiOutlineStar color="black" />}
-    </StarContainer>
-  );
-};
-
-const StarContainer = styled.div`
-  margin: 10px;
-  padding: 10px;
 `;

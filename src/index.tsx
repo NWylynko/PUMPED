@@ -1,29 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import Navigation from './navigation';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import Navigation from "./navigation";
+import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
+import { StoreProvider } from "./store";
 
 import { QueryCache, ReactQueryCacheProvider } from "react-query";
 
 const queryCache = new QueryCache({
   defaultConfig: {
     queries: {
-      staleTime: 60000,
+      // staleTime: 60000,
     },
   },
-})
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <ReactQueryCacheProvider queryCache={queryCache}>
-      <Router>
-        <Navigation />
-      </Router>
-    </ReactQueryCacheProvider>
+    <StoreProvider>
+      <ReactQueryCacheProvider queryCache={queryCache}>
+        <Router>
+          <Navigation />
+        </Router>
+      </ReactQueryCacheProvider>
+    </StoreProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

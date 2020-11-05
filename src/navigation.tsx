@@ -1,7 +1,9 @@
-import React from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 import Navbar from "./components/navbar";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+
+import StoreContext from './store'
 
 import IndexPage from "./pages/index";
 import ShoePage from "./pages/shoe";
@@ -12,8 +14,11 @@ import WishlistPage from "./pages/wishlist";
 export default function Navigation() {
   let location = useLocation();
 
+  let { customer } = useContext(StoreContext)
+
   return (
     <>
+      {!customer && <Redirect to="/me" />}
       <Navbar />
       <TransitionGroup>
         <CSSTransition key={location.key} classNames="fade" timeout={250}>
