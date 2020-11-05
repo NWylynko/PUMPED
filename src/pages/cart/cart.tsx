@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import StoreContext from "../../store";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { getCart, getShoe } from "../../api";
+import { checkoutCart, clearCart, getCart, getShoe } from "../../api";
 import type { OrderItem } from "PUMPED-api/src/api/order/types";
 import { apiEndpoint } from "../../config";
 import { Loading } from "../../components/loading";
@@ -29,6 +29,7 @@ export const Cart = (props: Props): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [data, setData] = useState<OrderItem[]>();
+  const [reFetch, setReFetch] = useState(false)
 
   useEffect(() => {
     const run = async () => {
@@ -42,7 +43,7 @@ export const Cart = (props: Props): JSX.Element => {
       }
     };
     run();
-  }, []);
+  }, [reFetch]);
 
   if (isLoading) {
     return <Loading />;
@@ -74,8 +75,8 @@ export const Cart = (props: Props): JSX.Element => {
         <Total>Total ${total}</Total>
       </TotalContainer>
       <ButtonContainer>
-        <button>Clear the cart</button>
-        <button>Checkout</button>
+        <button onClick={async () => { await clearCart(); setReFetch(state => !state) }}>Clear the cart</button>
+        <button onClick={async () => { await checkoutCart('the moon'); setReFetch(state => !state) }}>Checkout</button>
       </ButtonContainer>
     </Page>
   );
