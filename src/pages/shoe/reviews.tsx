@@ -4,6 +4,7 @@ import { getReviews } from "../../api";
 import styled from "styled-components";
 import { Stars } from "../../components/Stars";
 import HowLongAgo from "@nwylynko/how-long-ago";
+import { Loading } from "../../components/loading";
 
 interface Props {
   shoeID: number;
@@ -15,7 +16,7 @@ function Reviews({ shoeID }: Props): ReactElement {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {

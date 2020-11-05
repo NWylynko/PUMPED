@@ -10,6 +10,7 @@ import { Images } from "./Images";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Reviews from './reviews'
 import StoreContext from '../../store'
+import { Loading } from "../../components/loading";
 
 export function ShoePage() {
   let { id }: { id: string } = useParams();
@@ -21,7 +22,7 @@ export function ShoePage() {
   }, [data]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {

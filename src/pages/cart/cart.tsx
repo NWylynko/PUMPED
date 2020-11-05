@@ -6,6 +6,7 @@ import { getCart, getShoe } from "../../api";
 import type { OrderItem } from "PUMPED-api/src/api/order/types";
 import { apiEndpoint } from "../../config";
 import { Redirect } from "react-router-dom";
+import { Loading } from "../../components/loading";
 
 export const CheckCustomerID = () => {
   const { customer } = useContext(StoreContext);
@@ -32,7 +33,7 @@ export const Cart = (props: Props): JSX.Element => {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {
@@ -75,7 +76,7 @@ const Shoe = ({ ShoeID, StockID, quantity }: OrderItem) => {
   );
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (error) {

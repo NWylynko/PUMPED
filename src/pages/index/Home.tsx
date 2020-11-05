@@ -2,13 +2,14 @@ import React from 'react';
 import { Shoes } from './Shoes'
 import { useQuery } from "react-query";
 import { getShoes } from '../../api'
+import { Loading } from '../../components/loading';
 
 function Home() {
 
   const { isLoading, error, data = [] } = useQuery("shoes", getShoes);
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <Loading />
   }
 
   if (error) {
