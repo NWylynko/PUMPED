@@ -49,7 +49,9 @@ export const Me = (props: Props): JSX.Element => {
             onClick={async (event) => {
               event.preventDefault();
               setLoading(true);
-              setCustomer(await addCustomer({ firstName, lastName }));
+              const customer = await addCustomer({ firstName, lastName });
+              localStorage.setItem('customer', JSON.stringify(customer));
+              setCustomer(customer);
               setLoading(false);
               setRedirect('/')
             }}

@@ -75,7 +75,7 @@ function Shoe({
           <Text>Collection: {Collection}</Text>
           <button onClick={() => {
             if (customer) {
-              addToCart(ID, customer.ID, { StockID: stock[0].ID, quantity: 1 })
+              addToCart(ID, { StockID: stock[0].ID, quantity: 1 })
             }
           }}>Add to Cart</button>
           <button>

@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import type { CustomerWithID } from 'PUMPED-api/src/api/customer/types';
+import { setCustomerIDHeader } from './api'
 
 interface Istore {
   customer?: CustomerWithID;
@@ -17,7 +18,15 @@ export function StoreProvider({
   TestValues?: Istore;
 }): JSX.Element {
 
-  const [customer, setCustomer] = useState<CustomerWithID>()
+  const storageCustomer = localStorage.getItem('customer')
+
+  const ParsedStoreCustomer: CustomerWithID | undefined = storageCustomer ? JSON.parse(storageCustomer) : undefined
+
+  if (ParsedStoreCustomer) {
+    setCustomerIDHeader(ParsedStoreCustomer.ID)
+  }
+
+  const [customer, setCustomer] = useState<CustomerWithID | undefined>(ParsedStoreCustomer)
 
   const store: Istore = {
     customer, setCustomer

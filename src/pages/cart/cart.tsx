@@ -3,7 +3,6 @@ import StoreContext from "../../store";
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import { getCart, getShoe } from "../../api";
-import type { CustomerWithID } from "PUMPED-api/src/api/customer/types";
 import type { OrderItem } from "PUMPED-api/src/api/order/types";
 import { apiEndpoint } from "../../config";
 import { Redirect } from "react-router-dom";
@@ -20,17 +19,16 @@ export const CheckCustomerID = () => {
     );
   }
 
-  return <Cart customer={customer} />;
+  return <Cart />;
 };
 
 interface Props {
-  customer: CustomerWithID;
 }
 
-export const Cart = ({ customer }: Props): JSX.Element => {
+export const Cart = (props: Props): JSX.Element => {
 
-  const { isLoading, error, data } = useQuery(`cart ${customer.ID}`, () =>
-    getCart(customer.ID)
+  const { isLoading, error, data } = useQuery(`cart`, () =>
+    getCart()
   );
 
   if (isLoading) {

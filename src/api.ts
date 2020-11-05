@@ -5,14 +5,21 @@ import type { Review } from 'PUMPED-api/src/api/review/types';
 import type { Customer, CustomerWithID } from 'PUMPED-api/src/api/customer/types';
 import type { partOfOrderItem, OrderItem } from 'PUMPED-api/src/api/order/types';
 
-const instance = axios.create({
+let instance = axios.create({
   baseURL: apiEndpoint,
   // timeout: 1000,
   // headers: {'X-Custom-Header': 'foobar'}
 });
 
-const get = async (url: string, CustomerID?: number) => {
-  const response = await instance.get(url, { headers: { CustomerID } })
+export const setCustomerIDHeader = (CustomerID: number) => {
+  instance = axios.create({
+    baseURL: apiEndpoint,
+    headers: { CustomerID: CustomerID }
+  });
+}
+
+const get = async (url: string) => {
+  const response = await instance.get(url)
 
   const { data } = response
 
@@ -23,8 +30,8 @@ const get = async (url: string, CustomerID?: number) => {
   return data.data
 }
 
-const post = async (url: string, fields: any, CustomerID?: number) => {
-  const response = await instance.post(url, fields, { headers: { CustomerID } } )
+const post = async (url: string, fields: any) => {
+  const response = await instance.post(url, fields )
 
   const { data } = response
 
@@ -41,8 +48,14 @@ export const getShoe = (id: string | number): Promise<ShoeWithDetails> => get(`s
 
 export const getReviews = (id: string | number): Promise<Review[]> => get(`review/${id}`)
 
-export const addCustomer = (fields: Customer): Promise<CustomerWithID> => post(`customer`, fields)
+export const addCustomer = async (fields: Customer): Promise<CustomerWithID> => { 
+  const CustomerDetails = await post(`customer`, fields) 
 
-export const addToCart = (shoeID: number, CustomerID: number, fields: partOfOrderItem) => post(`cart/add/${shoeID}`, fields, CustomerID)
+  setCustomerIDHeader(CustomerDetails.ID)
 
-export const getCart = (CustomerID: number): Promise<OrderItem[]> => get(`/cart`, CustomerID)
+  return CustomerDetails
+}
+
+export const addToCart = (shoeID: number, fields: partOfOrderItem) => post(`cart/add/${shoeID}`, fields)
+
+export const getCart = (): Promise<OrderItem[]> => get(`/cart`)
