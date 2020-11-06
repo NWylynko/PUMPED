@@ -20,4 +20,7 @@ export function Stars({ n, white, style }: { n: number; white?: boolean, style?:
 const StarContainer = styled.div`
   margin: 10px;
   padding: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 `;
