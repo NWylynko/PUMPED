@@ -23,11 +23,22 @@ button, input {
   padding: 10px;
 
   min-width: 150px;
+  min-height: 75px;
+  max-height: 75px;
 
   background-color: #f04141;
   color: white;
 
   border: none;
+
+  transition: all 100ms ease-in-out;
+
+  /* font-size: px; */
+
+}
+
+button:hover {
+  background-color: #f36868;
 }
 
 /* page transitions */
