@@ -1,13 +1,16 @@
 import axios from 'axios'
 import { apiEndpoint } from './config'
-import type { BrandWithID, Brand, partOfBrand, partOfBrandWithID } from 'PUMPED-api/src/api/brand/types';
-import type { removedCartItem, clearedCart, AddedToCart } from 'PUMPED-api/src/api/cart/types';
-import type { Collection, CollectionWithID } from 'PUMPED-api/src/api/collection/types';
+import type { BrandWithID, Brand, partOfBrand, partOfBrandWithID } from             'PUMPED-api/src/api/brand/types';
+import type { removedCartItem, clearedCart, AddedToCart } from                      'PUMPED-api/src/api/cart/types';
+import type { Collection, CollectionWithID } from                                   'PUMPED-api/src/api/collection/types';
 import type { Colour, ColourWithID, partOfColour, updatedColour, addedColour } from 'PUMPED-api/src/api/colour/types';
-import type { ShoeWithColours, ShoeWithDetails } from 'PUMPED-api/src/api/shoe/types';
-import type { Review } from 'PUMPED-api/src/api/review/types';
-import type { Customer, CustomerWithID } from 'PUMPED-api/src/api/customer/types';
-import type { partOfOrderItem, OrderItem, partOfOrderItemWithIDs } from 'PUMPED-api/src/api/order/types';
+
+import type { ShoeWithColours, ShoeWithDetails } from                               'PUMPED-api/src/api/shoe/types';
+import type { Review } from                                                         'PUMPED-api/src/api/review/types';
+import type { Customer, CustomerWithID } from                                       'PUMPED-api/src/api/customer/types';
+import type { partOfOrderItem, OrderItem, partOfOrderItemWithIDs } from             'PUMPED-api/src/api/order/types';
+
+import type { WishListWithShoe, WishList } from 'PUMPED-api/src/api/wishlist/types'
 
 let instance = axios.create({
   baseURL: apiEndpoint,
@@ -40,6 +43,7 @@ const x = {
     const { data } = response
   
     if (data.error) {
+      console.log(data.error)
       throw new Error(data.error)
     }
   
@@ -124,3 +128,8 @@ export const getShoe = (id: string | number): Promise<ShoeWithDetails> => x.get(
 //tag
 
 //wishlist
+export const getWishlist = (): Promise<{ ShoeID: number; }[]> => x.get(`wishlist`)
+export const isInWishlist = (ShoeID: string | number): Promise<boolean> => x.get(`wishlist/${ShoeID}`)
+export const addToWishlist = (ShoeID: string | number): Promise<WishListWithShoe> => x.post(`wishlist/${ShoeID}`, {})
+export const removeFromWishlist = (ShoeID: string | number): Promise<WishListWithShoe> => x.delete(`wishlist/${ShoeID}`)
+export const clearWishlist = (): Promise<WishList> => x.delete(`wishlist`)
