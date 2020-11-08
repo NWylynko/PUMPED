@@ -2,7 +2,13 @@ import React, { useContext, useState, useEffect } from "react";
 import StoreContext from "../../store";
 import styled from "styled-components";
 import { useQuery } from "react-query";
-import { checkoutCart, clearCart, getCart, getShoe } from "../../api";
+import {
+  checkoutCart,
+  clearCart,
+  getCart,
+  getShoe,
+  updateCart,
+} from "../../api";
 import type { OrderItem } from "PUMPED-api/src/api/order/types";
 import { apiEndpoint } from "../../config";
 import { Loading } from "../../components/loading";
@@ -29,7 +35,7 @@ export const Cart = (props: Props): JSX.Element => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const [data, setData] = useState<OrderItem[]>();
-  const [reFetch, setReFetch] = useState(false)
+  const [reFetch, setReFetch] = useState(false);
 
   useEffect(() => {
     const run = async () => {
@@ -75,8 +81,22 @@ export const Cart = (props: Props): JSX.Element => {
         <Total>Total ${total}</Total>
       </TotalContainer>
       <ButtonContainer>
-        <button onClick={async () => { await clearCart(); setReFetch(state => !state) }}>Clear the cart</button>
-        <button onClick={async () => { await checkoutCart('the moon'); setReFetch(state => !state) }}>Checkout</button>
+        <button
+          onClick={async () => {
+            await clearCart();
+            setReFetch((state) => !state);
+          }}
+        >
+          Clear the cart
+        </button>
+        <button
+          onClick={async () => {
+            await checkoutCart("the moon");
+            setReFetch((state) => !state);
+          }}
+        >
+          Checkout
+        </button>
       </ButtonContainer>
     </Page>
   );
@@ -136,11 +156,63 @@ const Shoe = ({ ShoeID, StockID, quantity }: OrderItem) => {
       <NameLink to={`/shoe/${ShoeID}`}>
         <Name>{data.Name}</Name>
       </NameLink>
-      <p>Quantity {quantity}</p>
+      <Horizontal>
+      <p>Quantity</p>
+      <QuantitySelector
+        currentQuantity={quantity}
+        onSelect={(n) => {
+          updateCart(ShoeID, { quantity: n });
+        }}
+      />
+      </Horizontal>
       <p>${data.Price}</p>
     </Container>
   );
 };
+
+const Horizontal = styled.div`
+
+  display: inline-flex;
+  width: 110px;
+  justify-content: space-around;
+
+`;
+
+const QuantitySelector = ({
+  currentQuantity,
+  onSelect,
+}: {
+  currentQuantity: number;
+  onSelect?: (n: number) => void;
+}) => {
+  const [value, setValue] = useState(currentQuantity);
+
+  const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newValue = parseInt(event.target.value, 10);
+    setValue(newValue);
+    if (onSelect) {
+      onSelect(newValue);
+    }
+  };
+
+  return (
+    <StyledSelect value={value} onChange={onChange}>
+      {options.map((n) => (
+        <option value={n}>{n}</option>
+      ))}
+    </StyledSelect>
+  );
+};
+
+const StyledSelect = styled.select`
+
+  background-color: #131212;
+  border: none;
+  font-size: 16px;
+
+`;
 
 const Container = styled.div`
   display: inline-flex;
